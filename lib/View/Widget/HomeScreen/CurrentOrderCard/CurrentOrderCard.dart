@@ -1,7 +1,11 @@
 import 'package:deliveryapp/Utils/TexywithFont/TextwithFont.dart';
-import 'package:deliveryapp/main.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:deliveryapp/Controller/HomecreenController/HomecreenController.dart';
+
+import '../../../../main.dart';
+import '../QR_Code/QR_Code.dart';
 
 class Currentordercard extends StatelessWidget {
   const Currentordercard({
@@ -19,39 +23,14 @@ class Currentordercard extends StatelessWidget {
   final String ordername;
   final String orderhotel;
   final String orderaddress;
-  final int orderpriority; // Now an integer
-  final int orderpayment; // Now an integer
+  final int orderpriority;
+  final int orderpayment;
   final String orderid;
-  void _showQRCode(BuildContext context, String orderId) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: TextwithFont(
-            text: "QR Code for Order $orderId",
-            size: 18,
-            color: Theme.of(context).colorScheme.primary,
-            fontweight: FontWeight.bold,
-          ),
-          content: QrImageView(
-            data: orderId, // Using orderId as data for the QR code
-            version: QrVersions.auto,
-            size: 200.0,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("Close"),
-            ),
-          ],
-        );
-      },
-    );
-  }
+
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<HomecreenController>();
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
@@ -61,7 +40,7 @@ class Currentordercard extends StatelessWidget {
             Container(
               height: MyApp.height * .2,
               width: MyApp.width,
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: Theme.of(context)
@@ -118,18 +97,20 @@ class Currentordercard extends StatelessWidget {
                       ? Flexible(
                     child: FilledButton.icon(
                       onPressed: () {
-                        _showQRCode(context, orderid);
+                        Get.to(()=>Qrcodewidget(orderId: "2316"));
                       },
                       label: TextwithFont(
                         text: "Show QR",
                         size: 10,
-                        color: Theme.of(context).colorScheme.inversePrimary,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .inversePrimary,
                         fontweight: FontWeight.bold,
                       ),
-                      icon: Icon(Icons.qr_code_2),
+                      icon: const Icon(Icons.qr_code_2),
                     ),
                   )
-                      : SizedBox.shrink(),
+                      : const SizedBox.shrink(),
                 ],
               ),
             ),
@@ -139,7 +120,7 @@ class Currentordercard extends StatelessWidget {
               child: Container(
                 width: MyApp.width * .25,
                 height: MyApp.height * .25,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: AssetImage("images/box.png"),

@@ -1,4 +1,8 @@
+import 'package:deliveryapp/Utils/ScafoldWithsafearea.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../View/Widget/HomeScreen/QR_Code/QR_Code.dart';
 
 class HomecreenController extends GetxController {
   List Orders = <String>[
