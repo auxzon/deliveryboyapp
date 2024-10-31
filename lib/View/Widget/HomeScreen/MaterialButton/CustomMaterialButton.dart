@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../../Utils/TexywithFont/TextwithFont.dart';
 
 class Custommaterialbutton extends StatelessWidget {
-  const Custommaterialbutton({super.key, required this.text, this.ontap});
+  const Custommaterialbutton({super.key, required this.text, this.ontap, this.buttoncolor});
 
   final String text;
   final VoidCallback? ontap;
+  final Color? buttoncolor;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class Custommaterialbutton extends StatelessWidget {
       child: TextwithFont(
         text: text,
         size: 10,
-        color: Theme.of(context).colorScheme.inversePrimary,
+        color: buttoncolor??Theme.of(context).colorScheme.inversePrimary,
         fontweight: FontWeight.w800,
       ),
       elevation: 10,

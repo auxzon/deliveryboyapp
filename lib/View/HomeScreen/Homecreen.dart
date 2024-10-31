@@ -9,6 +9,8 @@ import 'package:deliveryapp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../Widget/HomeScreen/ListedOrderCard/Listedordercard.dart';
+
 class Homecreen extends StatelessWidget {
   const Homecreen({super.key});
 
@@ -21,11 +23,7 @@ class Homecreen extends StatelessWidget {
           height: MyApp.height,
           width: MyApp.width,
           decoration: BoxDecoration(
-              color: Theme
-                  .of(context)
-                  .colorScheme
-                  .primary
-                  .withAlpha(50)),
+              color: Theme.of(context).colorScheme.primary.withAlpha(50)),
         ),
         SizedBox(
           height: MyApp.height * .3,
@@ -62,10 +60,7 @@ class Homecreen extends StatelessWidget {
             padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
             child: Container(
               decoration: BoxDecoration(
-                  color: Theme
-                      .of(context)
-                      .colorScheme
-                      .inversePrimary,
+                  color: Theme.of(context).colorScheme.inversePrimary,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(15),
                       topRight: Radius.circular(15))),
@@ -80,32 +75,93 @@ class Homecreen extends StatelessWidget {
                       texts: "order name / order id",
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextwithFont(
-                        text: "Current Tracking",
-                        size: 15,
-                        color: Theme
-                            .of(context)
-                            .colorScheme
-                            .primary,
-                        fontweight: FontWeight.bold),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: controller.Orders.length,
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      itemBuilder: (context, index) => Currentordercard(
-                        index: index,
-                        ordername: controller.Orders[index],
-                        orderhotel: controller.OrderHotel[index],
-                        orderaddress: controller.OrdersAddress[index],
-                        orderpriority: controller.Orderpriority[index],
-                        orderpayment: controller.OrdersPaymenttype[index],
-                        orderid: controller.Ordersid[index].toString(),
-                      ),
+                  Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        controller.showlisted.value
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Custommaterialbutton(
+                                  text: "Current Tracking",
+                                  ontap: () {},
+                                ),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    controller.togglelistedview();
+                                  },
+                                  child: TextwithFont(
+                                      text: "Current Tracking",
+                                      size: 15,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      fontweight: FontWeight.bold),
+                                ),
+                              ),
+                        controller.showlisted.value
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    controller.togglelistedview();
+                                  },
+                                  child: TextwithFont(
+                                      text: "Listed Tracking",
+                                      size: 15,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      fontweight: FontWeight.bold),
+                                ),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Custommaterialbutton(
+                                  text: "Listed Tracking",
+                                  ontap: () {},
+                                ),
+                              ),
+                      ],
                     ),
+                  ),
+                  Obx(
+                    () => controller.showlisted.value
+                        ? Expanded(
+                            child: ListView.builder(
+                              itemCount: controller.Orders.length,
+                              shrinkWrap: true,
+                              physics: BouncingScrollPhysics(),
+                              itemBuilder: (context, index) => Currentordercard(
+                                index: index,
+                                ordername: controller.Orders[index],
+                                orderhotel: controller.OrderHotel[index],
+                                orderaddress: controller.OrdersAddress[index],
+                                orderpriority: controller.Orderpriority[index],
+                                orderpayment:
+                                    controller.OrdersPaymenttype[index],
+                                orderid: controller.Ordersid[index].toString(),
+                              ),
+                            ),
+                          )
+                        : Expanded(
+                            child: ListView.builder(
+                              itemCount: controller.Orders.length,
+                              shrinkWrap: true,
+                              physics: BouncingScrollPhysics(),
+                              itemBuilder: (context, index) => Listedordercard(
+                                index: index,
+                                ordername: controller.Orders[index],
+                                orderhotel: controller.OrderHotel[index],
+                                orderaddress: controller.OrdersAddress[index],
+                                orderpriority: controller.Orderpriority[index],
+                                orderpayment:
+                                    controller.OrdersPaymenttype[index],
+                                orderid: controller.Ordersid[index].toString(),
+                              ),
+                            ),
+                          ),
                   ),
                 ],
               ),

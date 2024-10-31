@@ -1,7 +1,5 @@
 import 'package:flutter/widgets.dart';
-
 import '../../../../utils/TextFont.dart';
-import '../../../../utils/color.dart';
 
 class TextwithFont extends StatelessWidget {
   TextwithFont(

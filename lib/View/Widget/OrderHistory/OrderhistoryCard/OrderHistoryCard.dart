@@ -38,12 +38,12 @@ class Orderhistorycard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
-        color: secondaryColor,
+        color: Theme.of(context).colorScheme.inversePrimary,
         elevation: 5,
         borderRadius: BorderRadius.circular(10),
         child: Container(
           decoration: BoxDecoration(
-            color: secondaryColor,
+            color: Theme.of(context).colorScheme.primary.withAlpha(50),
             borderRadius: BorderRadius.circular(10),
           ),
           width: MediaQuery.of(context).size.width,
