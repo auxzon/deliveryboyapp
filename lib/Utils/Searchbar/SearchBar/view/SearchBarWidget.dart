@@ -1,10 +1,12 @@
+import 'package:deliveryapp/Utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../Controller/SearchbarConreoller/SearchBarController.dart';
 
 class SearchBarAnimated extends StatelessWidget {
-  SearchBarAnimated({super.key,required this.texts});
+  SearchBarAnimated({super.key,required this.texts, this.bordercolor});
 String texts;
+Color? bordercolor;
   @override
   Widget build(BuildContext context) {
     TextEditingController search = TextEditingController();
@@ -15,22 +17,25 @@ String texts;
               () => AnimatedSwitcher(
             duration: Duration(milliseconds: 300),
             child: controller.displaysearch.value
-                ? TextFormField(
+                ? TextFormField(cursorColor:  bordercolor??Theme.of(context).colorScheme.primary,
               onChanged: (value) {
                 controller.searchtext.value = value;
               },
               controller: search,
+              style: TextStyle(
+                color: bordercolor??Theme.of(context).colorScheme.primary
+              ),
               key: ValueKey('TextFormField'), // Unique key for widget
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.primary.withOpacity(.8),
+                    color: bordercolor??Theme.of(context).colorScheme.primary.withOpacity(.8),
                   ),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.primary.withOpacity(.8),
+                    color: bordercolor??Theme.of(context).colorScheme.primary.withOpacity(.8),
                   ),
                   borderRadius: BorderRadius.circular(15),
                 ),
@@ -42,7 +47,7 @@ String texts;
                     },
                     icon: Icon(
                       Icons.search,
-                      color: Theme.of(context).colorScheme.primary.withOpacity(.8),
+                      color: bordercolor??Theme.of(context).colorScheme.primary.withOpacity(.8),
                     ),
                   )
                       : IconButton(
@@ -51,13 +56,13 @@ String texts;
                     },
                     icon: Icon(
                       Icons.cancel,
-                      color: Theme.of(context).colorScheme.primary.withOpacity(.8),
+                      color: bordercolor??Theme.of(context).colorScheme.primary.withOpacity(.8),
                     ),
                   ),
                 ),
                 hintText: texts,
                 hintStyle: TextStyle(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(.8),
+                  color: bordercolor??Theme.of(context).colorScheme.primary.withOpacity(.8),
                 ),
                 contentPadding: EdgeInsets.symmetric(horizontal: 10),
               ),
@@ -72,7 +77,7 @@ String texts;
                 child: CircleAvatar(
                   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
                   child: IconButton(
-                    color: Theme.of(context).colorScheme.primary.withOpacity(.8),
+                    color: Theme.of(context).colorScheme.primary,
                     onPressed: () {
                       controller.Displaysearch(); // Toggle visibility
                       print("displaysearch.value : ${controller.displaysearch.value}");

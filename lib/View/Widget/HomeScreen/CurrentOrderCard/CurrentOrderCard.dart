@@ -43,10 +43,7 @@ class Currentordercard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                color: Theme.of(context)
-                    .colorScheme
-                    .primary
-                    .withAlpha((index + 1) * 30),
+                color: Theme.of(context).colorScheme.primary.withAlpha(30),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,9 +99,7 @@ class Currentordercard extends StatelessWidget {
                       label: TextwithFont(
                         text: "Show QR",
                         size: 10,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .inversePrimary,
+                        color: Theme.of(context).colorScheme.inversePrimary,
                         fontweight: FontWeight.bold,
                       ),
                       icon: const Icon(Icons.qr_code_2),

@@ -29,21 +29,17 @@ class Orderhistorycard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = Theme.of(context).colorScheme.primary;
-    final secondaryColor = isDarkMode
-        ? Colors.grey[850]
-        : Theme.of(context).colorScheme.secondary.withAlpha((index + 1) * 20);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
-        color: Theme.of(context).colorScheme.inversePrimary,
+        // color: Theme.of(context).colorScheme.inversePrimary,
         elevation: 5,
         borderRadius: BorderRadius.circular(10),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary.withAlpha(50),
+            color: liteColor,
             borderRadius: BorderRadius.circular(10),
           ),
           width: MediaQuery.of(context).size.width,
@@ -78,7 +74,6 @@ class Orderhistorycard extends StatelessWidget {
                       textDecoration: orderstatus == "success"
                           ? TextDecoration.none
                           : TextDecoration.lineThrough,
-                      colors: Theme.of(context).colorScheme.error,
                       text: "point : $orderpoint",
                       size: 15,
                       color: primaryColor,

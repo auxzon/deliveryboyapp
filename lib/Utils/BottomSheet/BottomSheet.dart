@@ -1,45 +1,38 @@
-import 'dart:developer';
-import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
-import 'package:deliveryapp/Controller/BootomSheetController/Controller/BottomNavgationBarController.dart';
-import 'package:deliveryapp/Utils/ScafoldWithsafearea.dart';
+import 'package:deliveryapp/Utils/color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+import '../../../../controller/BootomSheetController/Controller/BottomNavgationBarController.dart';
+import '../ScafoldWithsafearea.dart';
 
 class BottomNavigator extends StatelessWidget {
-  final int index;
   BottomNavigator({Key? key, required this.index}) : super(key: key);
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(BottomNavigationBarController(index: index));
-    print("index : ${index}");
-    return BaseScreen(
-      child: PageView(
-        allowImplicitScrolling: true,
-        controller: controller.pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: controller.screens,
-      ),
-      extendBody: true,
-      bottomNavigationBar: AnimatedNotchBottomBar(
-        notchBottomBarController: controller.notchController,
-        color: Theme.of(context).colorScheme.primary.withOpacity(.6),
-        showLabel: true,
-        textOverflow: TextOverflow.visible,
-        shadowElevation: 5,
-        kBottomRadius: 28.0,
-        notchColor: Theme.of(context).colorScheme.inversePrimary,
-        removeMargins: false,
-        showShadow: true,
-        durationInMilliSeconds: 300,
-        itemLabelStyle: const TextStyle(fontSize: 10),
-        elevation: 1,
-        kIconSize: 24.0,
-        bottomBarItems: controller.navItems,
-        onTap: (selectedIndex) {
-          log('Selected index: $selectedIndex');
-          controller.pageController.jumpToPage(selectedIndex);
-        },
+    print("index in btm sheet ${index}");
+    return PopScope(
+      canPop: false, onPopInvoked: (didPop) {
+      SystemNavigator.pop();
+    },
+      child: BaseScreen(
+        child:PersistentTabView(
+          context,
+          controller: controller.navcontroller,
+          screens: controller.screens,
+          items: controller.navItems,
+          confineToSafeArea: true,
+          backgroundColor: Colors.white,
+          // isVisible: controller.hidebtmsheet.value,
+          handleAndroidBackButtonPress: true,
+          resizeToAvoidBottomInset: true,
+          stateManagement: true,
+          navBarHeight: kBottomNavigationBarHeight,
+          navBarStyle: NavBarStyle.style1,
+        ),
       ),
     );
   }

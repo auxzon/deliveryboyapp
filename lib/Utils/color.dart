@@ -26,7 +26,7 @@
 
 import 'package:flutter/material.dart';
 
-var kColorSchemelite = Colors.blue;
+var kColorSchemelite = Colors.green;
 
 var litethemebg = Colors.grey;
 
@@ -38,8 +38,8 @@ var ratingcolor = Color.fromRGBO(255, 254, 0, 1.0);
 var vegfoodcolor = Color.fromRGBO(24, 203, 0, 1.0);
 var nonvegfoodcolor = Color.fromRGBO(168, 0, 0, 1.0);
 
-var bottombarselectedcolor = Color.fromRGBO(44, 98, 122, 1.0);
-var bottombarnotselectedcolor = Color.fromRGBO(255, 255, 255, 1.0);
+var bottombarselectedcolor = Color.fromRGBO(4, 85, 0, 1.0);
+var bottombarnotselectedcolor = Color.fromRGBO(19, 39, 23, 1.0);
 
 
 ThemeData lightTheme = ThemeData(

@@ -1,15 +1,12 @@
 import 'package:deliveryapp/Controller/HomecreenController/HomecreenController.dart';
+import 'package:deliveryapp/Utils/AppBar/CommonAppBar.dart';
+import 'package:deliveryapp/Utils/MaterialButton/CustomMaterialButton.dart';
+import 'package:deliveryapp/Utils/ScafoldWithsafearea.dart';
 import 'package:deliveryapp/Utils/Searchbar/SearchBar/view/SearchBarWidget.dart';
 import 'package:deliveryapp/Utils/TexywithFont/TextwithFont.dart';
-import 'package:deliveryapp/View/Widget/HomeScreen/CurrentOrderCard/CurrentOrderCard.dart';
-import 'package:deliveryapp/View/Widget/HomeScreen/MaterialButton/CustomMaterialButton.dart';
-import 'package:deliveryapp/View/Widget/HomeScreen/UserCard/usercard.dart';
-import 'package:deliveryapp/View/Widget/HomeScreen/UserPointCard/Userpointdate.dart';
-import 'package:deliveryapp/main.dart';
+import 'package:deliveryapp/Utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../Widget/HomeScreen/ListedOrderCard/Listedordercard.dart';
 
 class Homecreen extends StatelessWidget {
   const Homecreen({super.key});
@@ -17,158 +14,132 @@ class Homecreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(HomecreenController());
-    return Stack(
-      children: [
-        Container(
-          height: MyApp.height,
-          width: MyApp.width,
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary.withAlpha(50)),
-        ),
-        SizedBox(
-          height: MyApp.height * .3,
-          width: MyApp.width,
-          child: Column(
-            children: [
-              Usercard(
-                leftwidget: CircleAvatar(
-                  maxRadius: 30,
-                  child: Image.asset("images/contacts.png"),
-                ),
-                rightwidget: IconButton(
-                    onPressed: () {},
-                    icon: Badge.count(
-                      count: 5,
-                      child: Icon(Icons.notifications),
-                    )),
-                centerbottom: "Kochi, Kerala",
-                centertop: "Delivery boy",
-              ),
-              Userpointdate(point: "1000.5"),
-              Custommaterialbutton(
-                text: "Report",
-                ontap: () {},
-              )
-            ],
+    return BaseScreen(
+      child: Column(
+        children: [
+          CommonAppBar(
+            title: "hi, delivery boy",
+            titlecolor: Theme.of(context).colorScheme.primary,
+            RightWidget: Icon(
+              Icons.notifications,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            onTapRight: () {},
           ),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15))),
-              height: MyApp.height * .7,
-              width: MyApp.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SearchBarAnimated(
-                      texts: "order name / order id",
-                    ),
+          TextwithFont(
+            text: "your current location",
+            fontweight: FontWeight.normal,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Obx(() {
+              return TextButton(
+                onPressed: () {
+                  controller.fetchCurrentLocation();
+                },
+                child: Text(
+                  controller.currentLocation.isNotEmpty
+                      ? controller.currentLocation.value
+                      : "Fetching location...",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
-                  Obx(
-                    () => Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        controller.showlisted.value
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Custommaterialbutton(
-                                  text: "Current Tracking",
-                                  ontap: () {},
-                                ),
-                              )
-                            : Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    controller.togglelistedview();
-                                  },
-                                  child: TextwithFont(
-                                      text: "Current Tracking",
-                                      size: 15,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      fontweight: FontWeight.bold),
-                                ),
-                              ),
-                        controller.showlisted.value
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    controller.togglelistedview();
-                                  },
-                                  child: TextwithFont(
-                                      text: "Listed Tracking",
-                                      size: 15,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      fontweight: FontWeight.bold),
-                                ),
-                              )
-                            : Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Custommaterialbutton(
-                                  text: "Listed Tracking",
-                                  ontap: () {},
-                                ),
-                              ),
-                      ],
-                    ),
-                  ),
-                  Obx(
-                    () => controller.showlisted.value
-                        ? Expanded(
-                            child: ListView.builder(
-                              itemCount: controller.Orders.length,
-                              shrinkWrap: true,
-                              physics: BouncingScrollPhysics(),
-                              itemBuilder: (context, index) => Currentordercard(
-                                index: index,
-                                ordername: controller.Orders[index],
-                                orderhotel: controller.OrderHotel[index],
-                                orderaddress: controller.OrdersAddress[index],
-                                orderpriority: controller.Orderpriority[index],
-                                orderpayment:
-                                    controller.OrdersPaymenttype[index],
-                                orderid: controller.Ordersid[index].toString(),
-                              ),
-                            ),
-                          )
-                        : Expanded(
-                            child: ListView.builder(
-                              itemCount: controller.Orders.length,
-                              shrinkWrap: true,
-                              physics: BouncingScrollPhysics(),
-                              itemBuilder: (context, index) => Listedordercard(
-                                index: index,
-                                ordername: controller.Orders[index],
-                                orderhotel: controller.OrderHotel[index],
-                                orderaddress: controller.OrdersAddress[index],
-                                orderpriority: controller.Orderpriority[index],
-                                orderpayment:
-                                    controller.OrdersPaymenttype[index],
-                                orderid: controller.Ordersid[index].toString(),
-                              ),
-                            ),
-                          ),
-                  ),
-                ],
-              ),
+                ),
+              );
+            }),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SearchBarAnimated(
+              bordercolor: Theme.of(context).colorScheme.primary,
+              texts: "order name / order id",
             ),
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Obx(() {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Custommaterialbutton(
+                    text: "New",
+                    ontap: () {
+                      controller.changeTab(0);
+                    },
+                    buttoncolor: controller.currentTabIndex.value == 0
+                        ? Theme.of(context).colorScheme.primary
+                        : liteColor,
+                    textcolor: controller.currentTabIndex.value != 0
+                        ? Theme.of(context).colorScheme.primary
+                        : liteColor,
+                  ),
+                  Custommaterialbutton(
+                    text: "Active",
+                    ontap: () {
+                      controller.changeTab(1);
+                    },
+                    buttoncolor: controller.currentTabIndex.value == 1
+                        ? Theme.of(context).colorScheme.primary
+                        : liteColor,
+                    textcolor: controller.currentTabIndex.value != 1
+                        ? Theme.of(context).colorScheme.primary
+                        : liteColor,
+                  ),
+                  Custommaterialbutton(
+                    text: "History",
+                    ontap: () {
+                      controller.changeTab(2);
+                    },
+                    buttoncolor: controller.currentTabIndex.value == 2
+                        ? Theme.of(context).colorScheme.primary
+                        : liteColor,
+                    textcolor: controller.currentTabIndex.value != 2
+                        ? Theme.of(context).colorScheme.primary
+                        : liteColor,
+                  ),
+                ],
+                mainAxisSize: MainAxisSize.max,
+              );
+            }),
+          ),
+          Obx(
+            () => Expanded(
+                child: controller.currentTabIndex.value == 0
+                    ? ListView.builder(
+                  shrinkWrap: true,
+                        itemCount: 5,
+                        itemBuilder: (context, index) => Card(
+                          child: TextwithFont(
+                              text: "${index + 1} new",
+                              fontweight: FontWeight.bold),
+                        ),
+                      )
+                    : controller.currentTabIndex.value == 1
+                        ? ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 5,
+                  itemBuilder: (context, index) => Card(
+                    child: TextwithFont(
+                        text: "${index + 1} active",
+                        fontweight: FontWeight.bold),
+                  ),
+                )
+                        : controller.currentTabIndex.value == 2
+                            ? ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 5,
+                  itemBuilder: (context, index) => Card(
+                    child: TextwithFont(
+                        text: "${index + 1} history",
+                        fontweight: FontWeight.bold),
+                  ),
+                )
+                            : SizedBox.shrink()),
+          ),
+        ],
+      ),
     );
   }
 }
