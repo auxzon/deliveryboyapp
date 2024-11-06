@@ -43,6 +43,7 @@ class HomecreenController extends GetxController {
       if (placemarks.isNotEmpty) {
         Placemark place = placemarks[0];
         currentLocation.value = "${place.locality}, ${place.administrativeArea}, ${place.country} , ${place.street} , ${place.postalCode}";
+      // print(currentLocation.value);
       }
     } catch (e) {
       currentLocation.value = "";

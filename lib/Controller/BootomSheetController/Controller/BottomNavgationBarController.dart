@@ -20,7 +20,7 @@ class BottomNavigationBarController extends GetxController {
   List<PersistentBottomNavBarItem> navItems = [
     PersistentBottomNavBarItem(
       icon: Icon(Icons.reorder_rounded),
-      title: ("Orders"),
+      title: ("Notification"),
       activeColorPrimary: bottombarselectedcolor,
       inactiveColorPrimary:bottombarnotselectedcolor,
     ),

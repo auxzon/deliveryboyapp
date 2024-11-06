@@ -39,39 +39,56 @@ class Homecreen extends StatelessWidget {
               onTapRight: () {},
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  TextwithFont(
-                    text: "your current location",
-                    fontweight: FontWeight.normal,
-                    color: liteColor,
-                  ),
-                ],
+              padding: EdgeInsets.symmetric(
+                  vertical: 10,horizontal: 20
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-              child: Row(
-                children: [
-                  Obx(() {
-                    return Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          controller.fetchCurrentLocation();
-                        },
-                        child: TextwithFont(
-                          text:controller.currentLocation.isNotEmpty
-                              ?controller.currentLocation.value
-                              : "Fetching location...",
-                          overfloww: TextOverflow.ellipsis,
-                          fontweight: FontWeight.bold,
-                          color: liteColor,
-                        ),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: liteColor,
+                  borderRadius: BorderRadius.circular(15)
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+                      child: Row(
+                        children: [
+                          TextwithFont(
+                            text: "your current location",
+                            fontweight: FontWeight.normal,
+                              color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ],
                       ),
-                    );
-                  }),
-                ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+                      child: Row(
+                        children: [
+                          Icon(Icons.location_on_sharp,color: Theme.of(context).colorScheme.primary,),
+                          Obx(() {
+                            return Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  controller.fetchCurrentLocation();
+                                },
+                                child: TextwithFont(
+                                  text:controller.currentLocation.isNotEmpty
+                                      ?controller.currentLocation.value
+                                      : "Fetching location...",
+                                  overfloww: TextOverflow.ellipsis,
+                                  fontweight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
