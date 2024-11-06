@@ -10,12 +10,14 @@ class Custommaterialbutton extends StatelessWidget {
     this.ontap,
     this.buttoncolor,
     this.textcolor,
+    this.borderradius,
   });
 
   final String text;
   final VoidCallback? ontap;
   final Color? buttoncolor;
   final Color? textcolor;
+  final double? borderradius;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +29,9 @@ class Custommaterialbutton extends StatelessWidget {
         color: textcolor ?? Theme.of(context).colorScheme.primary,
         fontweight: FontWeight.w800,
       ),
-      elevation: 10,
+      elevation: 20,
       color: buttoncolor ?? Theme.of(context).colorScheme.primary,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderradius??20)),
     );
   }
 }

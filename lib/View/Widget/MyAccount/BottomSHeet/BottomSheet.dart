@@ -11,13 +11,11 @@ class EditProfileBottomSheet extends StatelessWidget {
 
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     _nameController.text = addressController.name.value;
     _emailController.text = addressController.email.value;
-    _addressController.text = addressController.address.value;
 
     return Container(
       padding: EdgeInsets.all(16),
@@ -36,18 +34,12 @@ class EditProfileBottomSheet extends StatelessWidget {
             controller: _emailController,
             decoration: InputDecoration(labelText: "Email"),
           ),
-          TextField(
-            controller: _addressController,
-            decoration: InputDecoration(labelText: "Address"),
-          ),
           SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
               addressController.updateProfile(
                 _nameController.text,
                 _emailController.text,
-                _addressController.text,
-                'images/new_profile_image.png', // Replace with image picker path
               );
               Get.back(); // Close the bottom sheet
             },

@@ -4,7 +4,7 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../Utils/color.dart';
 import '../../../View/HomeScreen/Homecreen.dart';
 import '../../../View/MyProfile/Profile.dart';
-import '../../../View/OrderHistory/Orderhistory.dart';
+import '../../../View/Notification/Notification.dart';
 
 class BottomNavigationBarController extends GetxController {
   BottomNavigationBarController({required this.index});
@@ -12,7 +12,7 @@ class BottomNavigationBarController extends GetxController {
   late PersistentTabController navcontroller;
 
   List<Widget> screens = [
-    OrderHistory(),
+    OrderNotification(),
     Homecreen(),
     MyProfile(),
   ];
