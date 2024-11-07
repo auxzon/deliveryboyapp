@@ -1,22 +1,28 @@
 import 'package:deliveryapp/Utils/AppBar/CommonAppBar.dart';
 import 'package:deliveryapp/Utils/ScafoldWithsafearea.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
-
+import 'package:latlong2/latlong.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../Utils/TexywithFont/TextwithFont.dart';
 
 class Activedetailsscreen extends StatelessWidget {
-  const Activedetailsscreen({super.key,required this.index});
+  const Activedetailsscreen({super.key, required this.index});
 
   final int index;
 
   @override
   Widget build(BuildContext context) {
-    return BaseScreen(child: Column(
+    return BaseScreen(
+        child: Column(
       children: [
-        CommonAppBar(title: "Active Details",onTapLeft:() {
-          Get.back();
-        } ,),
+        CommonAppBar(
+          title: "Active Details",
+          onTapLeft: () {
+            Get.back();
+          },
+        ),
         Padding(
           padding: const EdgeInsets.all(10),
           child: Card(
@@ -114,12 +120,35 @@ class Activedetailsscreen extends StatelessWidget {
             color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
-        Expanded(child: Padding(
+        Expanded(
+            child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.red
-          ),),
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15), color: Colors.red),
+            child: FlutterMap(
+              options: MapOptions(
+                initialCenter: LatLng(10.028013, 76.305100), // Center the map over London
+                initialZoom: 20,
+              ),
+              children: [
+                TileLayer( // Display map tiles from any source
+                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', // OSMF's Tile Server
+                  userAgentPackageName: 'com.example.app',
+                  // And many more recommended properties!
+                ),
+                RichAttributionWidget( // Include a stylish prebuilt attribution widget that meets all requirments
+                  attributions: [
+                    TextSourceAttribution(
+                      'OpenStreetMap contributors',
+                      onTap: () => launchUrl(Uri.parse('https://openstreetmap.org/copyright')), // (external)
+                    ),
+                    // Also add images...
+                  ],
+                ),
+              ],
+            )
+          ),
         ))
       ],
     ));
