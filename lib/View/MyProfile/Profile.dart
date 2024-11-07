@@ -260,22 +260,35 @@ class MyProfile extends StatelessWidget {
 class SemicircleClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
+    Path path = Path();
+    path.moveTo(size.width * -0.003, size.height * 0.23);
+    path.quadraticBezierTo(
+      size.width * 0.1, size.height * 0.22,
+      size.width * 0.2, size.height * 0.21,
+    );
+    path.cubicTo(
+      size.width * 0.38, size.height * 0.20,
+      size.width * 0.42, size.height * 0.38,
+      size.width * 0.48, size.height * 0.44,
+    );
+    path.cubicTo(
+      size.width * 0.55, size.height * 0.50,
+      size.width * 0.58, size.height * 0.51,
+      size.width * 0.65, size.height * 0.50,
+    );
+    path.quadraticBezierTo(
+      size.width * 0.78, size.height * 0.48,
+      size.width * 1.0, size.height * 0.37,
+    );
+    path.lineTo(size.width, size.height);
+    path.lineTo(0, size.height);
+    path.close();
 
-    Path path_0 = Path();
-    path_0.moveTo(size.width*-0.0035857,size.height*0.2282143);
-    path_0.quadraticBezierTo(size.width*0.1055571,size.height*0.2163000,size.width*0.2077143,size.height*0.2122286);
-    path_0.cubicTo(size.width*0.3780571,size.height*0.1967714,size.width*0.4187571,size.height*0.3829857,size.width*0.4855286,size.height*0.4382429);
-    path_0.cubicTo(size.width*0.5450429,size.height*0.4983286,size.width*0.5850857,size.height*0.5064286,size.width*0.6449429,size.height*0.4986857);
-    path_0.quadraticBezierTo(size.width*0.7809571,size.height*0.4790286,size.width*1.0061429,size.height*0.3743714);
-    path_0.lineTo(size.width,size.height);
-    path_0.lineTo(0,size.height*0.9985714);
-    path_0.lineTo(size.width*-0.0035857,size.height*0.2282143);
-    path_0.close();
-
-    return path_0;
+    return path;
   }
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
+
 
