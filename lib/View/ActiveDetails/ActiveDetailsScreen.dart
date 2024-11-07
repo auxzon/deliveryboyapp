@@ -129,7 +129,7 @@ class Activedetailsscreen extends StatelessWidget {
             child: FlutterMap(
               options: MapOptions(
                 initialCenter: LatLng(10.028013, 76.305100), // Center the map over London
-                initialZoom: 20,
+                initialZoom: 15,
               ),
               children: [
                 TileLayer( // Display map tiles from any source
